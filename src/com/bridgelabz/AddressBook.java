@@ -81,6 +81,7 @@ public class AddressBook {
         }
     }
 
+
     private static void addContact(Scanner scanner) {
         Contact contact = new Contact();
 
@@ -88,10 +89,18 @@ public class AddressBook {
         String firstName = scanner.nextLine();
         contact.setFirstName(validateFirstName(firstName, scanner));
 
+        System.out.println("Enter Your Email: ");
+        String email = scanner.nextLine();
+        contact.setEmail(validateEmail(email, scanner));
+
+        System.out.println("Enter Phone Number: ");
+        String phoneNumber = scanner.nextLine();
+        contact.setPhoneNumber(validatePhone(phoneNumber, scanner));
 
         addressBook.add(contact);
         System.out.println("Contact has been saved.");
     }
+
     public static String validateFirstName(String firstName, Scanner scanner) {
         String resultPattern = "^[A-Z]{1}[a-z]{2,9}$";
         Pattern regex = Pattern.compile(resultPattern);
@@ -106,4 +115,29 @@ public class AddressBook {
         return firstName;
     }
 
+    public static String validateEmail(String email, Scanner scanner) {
+        String resultPattern = "^[a-z0-9]{3,}+([_+-.][a-z0-9]{3,}+)*@[a-z0-9]+.[a-z]{2,3}+(.[a-z]{2,3}){0,1}$";
+        Pattern regex = Pattern.compile(resultPattern);
+        Matcher inputMatcher = regex.matcher(email);
+
+        while (!inputMatcher.matches()) {
+            System.out.println("Error: Invalid Email, please try again");
+            email = scanner.nextLine();
+            inputMatcher = regex.matcher(email);
+        }
+        return email;
+    }
+
+    public static String validatePhone(String phone, Scanner scanner) {
+        String resultPattern = "^[+]{0,1}[0-9]{0,2}[0-9]{10}$";
+        Pattern regex = Pattern.compile(resultPattern);
+        Matcher inputMatcher = regex.matcher(phone);
+
+        while (!inputMatcher.matches()) {
+            System.out.println("Error: Invalid Phone number, please try again");
+            phone = scanner.nextLine();
+            inputMatcher = regex.matcher(phone);
+        }
+        return phone;
+    }
 }
