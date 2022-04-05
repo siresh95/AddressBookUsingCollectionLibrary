@@ -31,6 +31,9 @@ public class AddressBook {
                 case "1":
                     addContact(scanner);
                     break;
+                case "2":
+                    showContacts();
+                    break;
 
                 default:
                     System.out.println("Invalid option choosed.");
@@ -39,6 +42,17 @@ public class AddressBook {
         }
         scanner.close();
     }
+
+    private static void showContacts() {
+        if (addressBook.isEmpty()) {
+            System.out.println("Address book is empty.");
+        } else {
+            for (Contact contact : addressBook) {
+                System.out.println(contact);
+            }
+        }
+    }
+
     private static void addContact(Scanner scanner) {
         Contact contact = new Contact();
 
@@ -63,4 +77,5 @@ public class AddressBook {
         }
         return firstName;
     }
+
 }
