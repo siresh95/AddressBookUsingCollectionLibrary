@@ -34,13 +34,41 @@ public class AddressBook {
                 case "2":
                     showContacts();
                     break;
-
+                case "3":
+                    editContact(scanner);
+                    break;
                 default:
                     System.out.println("Invalid option choosed.");
                     break;
             }
         }
         scanner.close();
+    }
+
+    private static void editContact(Scanner scanner) {
+        System.out.println("Which contact you want to Edit? (Enter the First name)");
+        String firstName = scanner.nextLine();
+
+        Contact editContact = null;
+        for (int i = 0; i < addressBook.size(); i++) {
+            if (firstName.equals(addressBook.get(i).getFirstName())) {
+                editContact = addressBook.get(i);
+            }
+        }
+
+        if (editContact == null) {
+            System.out.println("No contact found with name " + firstName + ".");
+        } else {
+            editContactDetails(editContact, scanner);
+        }
+    }
+
+    private static void editContactDetails(Contact editContact, Scanner scanner) {
+        System.out.println("Enter First Name: ");
+        String firstName = scanner.nextLine();
+        editContact.setFirstName(validateFirstName(firstName, scanner));
+
+        System.out.println("Contact has been edited.");
     }
 
     private static void showContacts() {
